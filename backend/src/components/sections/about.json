@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_sections_abouts",
+  "info": {
+    "displayName": "About",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "img": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "description": {
+      "type": "component",
+      "repeatable": false,
+      "component": "components.detail"
+    },
+    "skills": {
+      "type": "component",
+      "repeatable": true,
+      "component": "components.detail"
+    }
+  }
+}
