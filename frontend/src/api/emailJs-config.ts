@@ -1,5 +1,5 @@
 export const emailSetting = {
-    service_id: import.meta.env.VITE_SERVICE_ID,
-    template_id: import.meta.env.VITE_TEMPLATE_ID,
-    user_id: import.meta.env.VITE_USER_ID,
+    service_id: process.env.SERVICE_ID,
+    template_id: process.env.TEMPLATE_ID,
+    user_id: process.env.USER_ID,
 }

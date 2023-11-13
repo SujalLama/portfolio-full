@@ -1,7 +1,8 @@
-import ReactMarkdown from "react-markdown";
+import Image from "next/image";
+
 
 export interface ISinglePageProps {
-  banner: unknown;
+  banner: {src: string; alt: string;};
   title: string | null;
   desc: string | null;
   content: string | null;
@@ -29,15 +30,14 @@ export default function SinglePage({data} : {data: ISinglePageProps | null}) {
   
   const {banner, title, desc, content, scroll} = data;
 
-  const newBanner = banner as {fields: {title: string, file: {url: string}}};
 
   return (
     <main className="bg-gray-100 dark:bg-primary min-h-screen">
-      <div className={`w-full h-full z-20 md:min-h-[24rem] text-white  bg-primary-lighter dark:bg-primary-darker ${newBanner.fields.file.url ? '' : 'pt-24'} ${scroll ? 'h-[24rem] md:h-[34rem]' : ''}`}>
+      <div className={`w-full h-full z-20 md:min-h-[24rem] text-white  bg-primary-lighter dark:bg-primary-darker ${banner.src ? '' : 'pt-24'} ${scroll ? 'h-[24rem] md:h-[34rem]' : ''}`}>
         <div className="max-w-screen-xl mx-auto px-4 flex flex-col h-full">
-          {newBanner.fields.file.url 
+          {banner.src 
             ? <div className={`overflow-hidden w-full md:w-[80%] mx-auto my-8 rounded-lg border-gray-600 ${scroll ? 'group md:hover:cursor-pointer' : ''}`}>
-            <img src={newBanner.fields.file.url} alt={newBanner.fields.title}
+            <Image src={banner.src} alt={banner.alt} fill
           className={`${scroll ? "md:group-hover:-translate-y-[82%] md:transition-transform md:duration-[6s]" : '' }`} /> 
             </div>
             :  (<>
@@ -51,7 +51,7 @@ export default function SinglePage({data} : {data: ISinglePageProps | null}) {
         </div>
       </div>
       
-      {newBanner.fields.file.url && (
+      {banner.src && (
         <div className="max-w-screen-xl mx-auto px-4 mt-24 flex flex-col h-full justify-end dark:text-white">
         {title &&<h1 className="text-4xl md:text-6xl font-semibold leading-tight max-w-screen-md pb-8">
             {title}
@@ -59,13 +59,11 @@ export default function SinglePage({data} : {data: ISinglePageProps | null}) {
           {desc && <p className="max-w-screen-md text-lg leading-8 pb-8">{desc}</p>}
         </div>)
       }
-      <div className={`max-w-screen-xl mx-auto px-4 dark:text-white ${newBanner.fields.file.url ? 'pt-8 pb-24' : 'py-24'}`}>
+      <div className={`max-w-screen-xl mx-auto px-4 dark:text-white ${banner.src ? 'pt-8 pb-24' : 'py-24'}`}>
       
-        {content && <div className="max-w-screen-md prose lg:prose-lg  dark:prose-invert dark:prose-blockquote:before:content-none prose-blockquote:p-8 prose-code:prose-pp-8 prose-p:before:content-none prose-blockquote:bg-primary-lighter prose-blockquote:block  prose-code:before:content-none prose-code:after:content-none">
-          <ReactMarkdown>
-            {content}
-          </ReactMarkdown>
-        </div>}
+        {content && <div 
+            className="max-w-screen-md prose lg:prose-lg  dark:prose-invert dark:prose-blockquote:before:content-none prose-blockquote:p-8 prose-code:prose-pp-8 prose-p:before:content-none prose-blockquote:bg-primary-lighter prose-blockquote:block  prose-code:before:content-none prose-code:after:content-none" 
+            dangerouslySetInnerHTML={{__html: content}} />}
       </div>
     </main>
   )

@@ -1,4 +1,3 @@
-import { getHero } from "../api/page";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -58,7 +57,7 @@ export default async function Hero() {
                 <div className="relative mt-10 sm:mt-0">
 
                     {heroData.banner.url && <Image
-                         className="max-w-full" 
+                         className="max-w-full ml-auto" 
                          src={heroData.banner.url} 
                          alt={heroData.banner.alt}
                          width={450}

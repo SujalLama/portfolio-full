@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { getTags } from "../api/tags";
 import {FaThList} from "react-icons/fa"
 import {IoGrid} from "react-icons/io5"
-import { useSearchParams } from "react-router-dom";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export interface ITab {
     name: string;
@@ -16,24 +16,34 @@ interface ITabProps {
     setGrid: Dispatch<SetStateAction<boolean>>;
 }
 
+const tabsData = [
+    {
+        name: "react",
+        id: "nidf",
+    },
+    {
+        name: "fullstack",
+        id: "nidfsdf",
+    },
+    {
+        name: "wordpress",
+        id: "nidfasdfsfd",
+    },
+    {
+        name: "next",
+        id: "nidfdniidf",
+    },
+]
+
 export default function Filter({tab, setTab, grid, setGrid} : ITabProps) {
-  
-  const [tabs, setTabs] = useState<ITab[] | null>(null);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const router = useRouter()
+
+  const [tabs, setTabs] = useState<ITab[] | null>(tabsData);
+  const searchParams = useSearchParams()!;
 
   const catId = searchParams.get('category');
   const searchId = searchParams.get('s');
 
-  useEffect(() => {
-    (async function () {
-        const res = await getTags();
-        if(!res) return;
-
-        if(res.status) {
-            setTabs(res.data as ITab[]);
-        }
-    })()
-  }, [])
 
   useEffect(() => {
     if(catId) {
@@ -43,7 +53,7 @@ export default function Filter({tab, setTab, grid, setGrid} : ITabProps) {
 
   function clickHandler (path : string) {
     const searchParam = searchId ? `s=${searchId}&category=${path}` : `category=${path}`;
-    setSearchParams(searchParam)
+    router.push(`/blogs?${searchParam}`);
   }
 
   if(!tabs) {

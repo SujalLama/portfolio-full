@@ -15,12 +15,52 @@ let data : IProject[] | null = null;
 const projects = [
     {
         id: "nasidfd232",
-        slug: "",
-        title: "",
+        slug: "pigment-chart",
+        title: "Pigment chart",
         short_desc: "string;",
-        tags: ["", ""],
-        banner: {url: "/string;", alt: "string;",}
-    }
+        tags: ["react"],
+        banner: {url: "https://images.ctfassets.net/n6ipnb4tupgw/3fWjhco5IrqibZT3lBbGB9/e1e4561d58712f3a5f6f1099851c544e/pigmet-chart.webp", alt: "pigment chart",}
+    },
+    {
+        id: "nasidfd232ni0",
+        slug: "portfolio",
+        title: "Portfolio",
+        short_desc: "string;",
+        tags: ["fullstack", "react"],
+        banner: {url: "https://images.ctfassets.net/n6ipnb4tupgw/3Ycmw46f0JVSemav1eL5xt/a8d5f9cc8205b70c0787722b88e42c8a/Screenshot_2023-09-20_at_13.01.54.png", alt: "portfolio",}
+    },
+    {
+        id: "nasidfd232mo23",
+        slug: "planetfarms",
+        title: "Planetfarms",
+        short_desc: "string;",
+        tags: ["fullstack", "node", "react"],
+        banner: {url: "https://images.ctfassets.net/n6ipnb4tupgw/4uPC8d6Jzb9oBuo5xrP5QJ/4070c7921b7a9c3398eb3fd659241421/planet.jpg", alt: "pigment chart",}
+    },
+    {
+        id: "nasidfd232asie",
+        slug: "abba-the-museum",
+        title: "Abba the museum",
+        short_desc: "string;",
+        tags: ["wordpress"],
+        banner: {url: "https://images.ctfassets.net/n6ipnb4tupgw/3w4R9wrMW1MKqRbv6tA01H/685ea4ebcf2fa26fad0f7f4d7ab2cb4f/abba-full.webp", alt: "pigment chart",}
+    },
+    {
+        id: "nasidfd23290js",
+        slug: "areim",
+        title: "Areim",
+        short_desc: "string;",
+        tags: ["wordpress"],
+        banner: {url: "https://images.ctfassets.net/n6ipnb4tupgw/3F80lluZGysKvMk0O2gWBN/b9c5e28af6a2b7baa7a78be9d6312c8e/areim-full.webp", alt: "pigment chart",}
+    },
+    {
+        id: "nasidfd232opb",
+        slug: "arkoevent",
+        title: "ArkoEvent",
+        short_desc: "string;",
+        tags: ["wordpress"],
+        banner: {url: "https://images.ctfassets.net/n6ipnb4tupgw/6KDwsEbQg72RMELExv9aG9/49d9e254e62122b5192a57edad299eaa/arko-full.webp", alt: "pigment chart",}
+    },
 ]
 export default function ProjectSection() {
 

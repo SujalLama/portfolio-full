@@ -1,5 +1,6 @@
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import CardTags from "./CardTags";
+import Image from "next/image";
 
 export interface CardProps {
     id: string;
@@ -24,12 +25,12 @@ export default function CardList ({data} : {data: CardProps[] | null}) {
             {
                 data.map(item => {
                     return (
-                        <Link to={item.link} className="w-full flex flex-col bg-white border border-gray-200 rounded-md shadow-md md:flex-row dark:border-2  dark:border-primary-lighter dark:bg-gradient-to-t from-primary to-primary-light mb-4 group">
+                        <Link href={item.link} key={item.id} className="w-full flex flex-col bg-white border border-gray-200 rounded-md shadow-md md:flex-row dark:border-2  dark:border-primary-lighter dark:bg-gradient-to-t from-primary to-primary-light mb-4 group">
                                 <div className=" w-full h-40 md:w-40 rounded-t-md md:rounded-r-none md:rounded-l-md shrink-0 bg-gradient-to-l dark:from-tertiary dark:to-secondary from-primary to-primary-lighter">
                                 {
                                     item.banner.url 
                                         ?
-                                            <img src={item.banner.url} alt={item.banner.title} className="object-cover object-center w-full h-full rounded-t-md md:rounded-none md:rounded-l-md" />
+                                            <Image src={item.banner.url} alt={item.banner.title} fill className="object-cover object-center w-full h-full rounded-t-md md:rounded-none md:rounded-l-md" />
                                         : (
                                             <div className="flex items-center justify-center h-full">
                                                 <span className="text-white font-bold text-lg font-heading">SL</span>

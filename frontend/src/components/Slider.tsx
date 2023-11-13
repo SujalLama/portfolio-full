@@ -1,11 +1,14 @@
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 
 interface ISlider {
     id: string;
     title: string;
+    slug: string;
     short_desc: string;
-    link: string;
     banner: {url: string; title: string;}
 }
 
@@ -71,13 +74,17 @@ export default function Slider({data} : {data: ISlider[]}) {
                                         transform: `translateX(${slider}%)`,
                                     }}
                                 >
-                                    <Link to={item.link} className="w-full hover:bg-secondary">
+                                    <Link href={`blogs/${item.slug}`} className="w-full hover:bg-secondary">
                                         <div className="relative bg-white border border-gray-200 
-                                        dark:border-primary-lighter rounded-md shadow-md dark:border-2 dark:border-primary-lighter dark:bg-gradient-to-t 
+                                        rounded-md shadow-md dark:border-2 dark:border-primary-lighter dark:bg-gradient-to-t 
                                         from-primary to-primary-light group">
                                             {item.banner.url 
-                                                ? <div className="w-full rounded-t-lg h-40">
-                                                    <img src={item.banner.url} alt={item.banner.title} className="rounded-t-lg w-full h-full object-cover" />
+                                                ? <div className="w-full rounded-t-lg h-40 relative">
+                                                    <Image 
+                                                        src={item.banner.url} 
+                                                        alt={item.banner.title} 
+                                                        fill
+                                                        className="rounded-t-lg w-full h-full object-cover" />
                                                 </div>
                                                 : <div className="w-full rounded-t-lg h-40 bg-gradient-to-l dark:from-tertiary dark:to-secondary from-primary to-primary-lighter">
                                                     <div className="flex items-center justify-center h-full">
