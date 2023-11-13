@@ -1,6 +1,4 @@
-import { FormEvent, useState } from 'react';
 import {FaLocationDot, FaMobile, FaEnvelope} from 'react-icons/fa6';
-import { submitEmail } from '../api/contact';
 import ContactForm from '@/components/ContactForm';
 
 export default function Contact() {

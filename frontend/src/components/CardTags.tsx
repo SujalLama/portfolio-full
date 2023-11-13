@@ -8,7 +8,7 @@ export default function CardTags ({tags, grid} : {tags : string[], grid: boolean
             tags.map((tag) => {
                 
                 return (
-                    <Tag tag={tag}/>
+                    <Tag key={tag} tag={tag}/>
                 )
             })
         }
