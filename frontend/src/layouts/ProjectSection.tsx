@@ -62,7 +62,7 @@ const projects = [
         banner: {url: "https://images.ctfassets.net/n6ipnb4tupgw/6KDwsEbQg72RMELExv9aG9/49d9e254e62122b5192a57edad299eaa/arko-full.webp", alt: "pigment chart",}
     },
 ]
-export default function ProjectSection() {
+export default function ProjectSection({data}: {data: {title: string; desc: string;}}) {
 
     if(!projects || projects?.length === 0) {
         return null;
@@ -71,7 +71,8 @@ export default function ProjectSection() {
   return (
         <section className="dark:bg-primary-darker">
             <div className="mx-auto max-w-screen-xl py-24 px-4">
-                <h2 className="dark:text-white text-2xl lg:text-4xl font-bold tracking-wider lg:w-11/12 leading-relaxed">Projects</h2>
+                {data.title && <h2 className="dark:text-white text-2xl lg:text-4xl font-bold tracking-wider lg:w-11/12 leading-relaxed">{data.title}</h2>}
+                {data.desc && <p className="dark:text-gray-400 mt-5 md:text-md">{data.desc}</p>}
                 <div className="py-4">
                     <svg xmlns="http://www.w3.org/2000/svg" className="text-tertiary" width={60} height={2} viewBox="0 0 60 2" fill="none">
                         <rect width={60} height={2} fill="currentColor" />

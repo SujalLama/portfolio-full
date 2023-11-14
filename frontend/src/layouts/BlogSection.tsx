@@ -46,7 +46,7 @@ const blogs = [
         banner: {url: "", title: "",}
     },
 ]
-export default function BlogSection() {
+export default function BlogSection({data}: {data: {title: string; desc: string;}}) {
 
     if(!blogs || blogs?.length === 0) {
         return null;
@@ -55,7 +55,7 @@ export default function BlogSection() {
     return (
         <section className="bg-gray-100 dark:bg-primary">
             <div className="px-4 mx-auto max-w-screen-xl py-24">
-                <Slider data={blogs ?? []} />
+                <Slider data={blogs ?? []} title={data.title} desc={data.desc} />
 
                 <div className="hidden md:block text-center mt-16">
                     <Link href="/blogs" className="py-3 rounded-md px-4 mt-8 tracking-wide border-gray-400 hover:bg-gray-200 dark:text-white border dark:border-secondary text-base dark:hover:bg-secondary">

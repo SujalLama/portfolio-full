@@ -12,7 +12,7 @@ interface ISlider {
     banner: {url: string; title: string;}
 }
 
-export default function Slider({data} : {data: ISlider[]}) {
+export default function Slider({data, title, desc} : {data: ISlider[], title: string; desc: string;}) {
     const [slider, setSlider] = useState(0);
 
     const next = () => {
@@ -41,7 +41,8 @@ export default function Slider({data} : {data: ISlider[]}) {
     <div className="md:flex md:flex-wrap md:items-center">
         <div className="md:w-3/12 lg:w-1/3 w-full pb-6 md:pb-0 md:pr-6">
             <div className="w-full">
-                <h2 className="text-2xl lg:text-4xl font-bold tracking-wider lg:w-11/12 leading-relaxed dark:text-white">Latest Blogs</h2>
+                {title && <h2 className="text-2xl lg:text-4xl font-bold tracking-wider lg:w-11/12 leading-relaxed dark:text-white">{title}</h2>}
+                {desc && <p className="dark:text-gray-400 mt-5 md:text-md">{desc}</p>}
                 <div className="py-4">
                     <svg xmlns="http://www.w3.org/2000/svg" width={60} height={2} className="text-tertiary" viewBox="0 0 60 2" fill="none">
                         <rect width={60} height={2} fill="currentColor" />

@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 
 export interface ITab {
     name: string;
-    id: string;
+    slug: string;
 }
 
 interface ITabProps {
@@ -19,19 +19,19 @@ interface ITabProps {
 const tabsData = [
     {
         name: "react",
-        id: "nidf",
+        slug: "nidf",
     },
     {
         name: "fullstack",
-        id: "nidfsdf",
+        slug: "nidfsdf",
     },
     {
         name: "wordpress",
-        id: "nidfasdfsfd",
+        slug: "nidfasdfsfd",
     },
     {
         name: "next",
-        id: "nidfdniidf",
+        slug: "nidfdniidf",
     },
 ]
 
@@ -67,11 +67,11 @@ export default function Filter({tab, setTab, grid, setGrid} : ITabProps) {
             {
                 tabs.map(item => {
                     return (
-                        <li className="mr-2" key={item.id}>
+                        <li className="mr-2" key={item.slug}>
                             <button 
                                 className={`dark:text-white inline-block capitalize mb-4 md:mb-0 px-2 md:p-4 hover:border-b-2 rounded-t-lg hover:border-secondary
-                                ${item.id === tab ? 'border-b-2 border-secondary' : ''}`}
-                                onClick={() => clickHandler(item.id)}
+                                ${item.slug === tab ? 'border-b-2 border-secondary' : ''}`}
+                                onClick={() => clickHandler(item.slug)}
                                 >
                                 {item.name}
                             </button>

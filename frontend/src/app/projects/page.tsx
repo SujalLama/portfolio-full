@@ -68,14 +68,8 @@ export default function ProjectsPage() {
         <div className="mb-4 md:mb-0 w-full mx-auto relative min-h-[20rem]">
             <div className="absolute left-0 top-0 w-full h-full  bg-primary-lighter dark:bg-primary-dark">
                 <div className="max-w-screen-xl mx-auto px-4 h-full flex items-center justify-center flex-col">
-                    <h1 className="text-center text-white font-bold text-4xl">Search Projects</h1>
-                    <form className="w-full md:w-2/3 xl:w-1/2 mx-auto mt-8" onSubmit={(e) => searchSubmit(e)}>
-                        <div className="flex items-center  flex-col md:flex-row bg-white rounded-lg overflow-hidden p-1 justify-between">
-                            <input value={search} onChange={onChangeSearchInput} className="w-full md:w-auto mb-2 md:mb-0 text-base flex-grow outline-none p-2" 
-                            type="text" placeholder="Search Projects" />
-                            <button className="w-full md:w-auto bg-primary hover:bg-primary-dark text-white text-base rounded-lg px-8 py-2 ">Search</button>
-                        </div>
-                    </form>
+                    <h1 className="text-center text-white font-bold text-4xl">All Projects</h1>
+                    
                 </div>
             </div>
       </div>
