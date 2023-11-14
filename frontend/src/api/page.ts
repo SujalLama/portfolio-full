@@ -1,7 +1,11 @@
-import { API_URL, HOME_PATH } from "./constants";
+import { HOME_PATH } from "./constants";
 
 export async function getHomeData () {
-  const {data} = await fetch(HOME_PATH).then(res => res.json());
-
-  return data?.attributes?.sections ?? [];
+  try {
+    const {data} = await fetch(HOME_PATH).then(res => res.json());
+  
+    return data?.attributes?.sections ?? [];
+  } catch(error) {
+    return null;
+  }
 }
