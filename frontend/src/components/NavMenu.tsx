@@ -6,8 +6,9 @@ import { MdDarkMode, MdWbSunny } from 'react-icons/md'
 import Nav from './Nav'
 import { useState } from 'react';
 import { useTheme } from '@/providers/ThemeProvider';
+import Link from 'next/link';
 
-export default function NavMenu() {
+export default function NavMenu({downloadLink}: {downloadLink: string}) {
     const [openModal, setOpenModal] = useState(false);
     const {darkMode, setDarkMode} = useTheme();
 
@@ -16,12 +17,12 @@ export default function NavMenu() {
         <div className="flex items-center">
                 <Tooltip>
                     <Tooltip.Header>    
-                        <a href="https://www.googleapis.com/drive/v3/files/1EzFnfwgdhzcX6LjcskzDbr4IFTejhRi_?alt=media&key=AIzaSyAA9ERw-9LZVEohRYtCWka_TQc6oXmvcVU&supportsAllDrives=True" download target="_blank" 
+                        <Link href={downloadLink} download target="_blank" 
                         className="text-white font-medium rounded-md text-lg
                         py-2 px-2.5 mr-1.5 dark:bg-secondary dark:hover:bg-secondary bg-primary
                         block hover:bg-primary-darker transition duration-300 hover:scale-105">
                             <BiSolidDownload />
-                        </a>
+                        </Link>
                     </Tooltip.Header>
                     <Tooltip.Content>
                         Download CV

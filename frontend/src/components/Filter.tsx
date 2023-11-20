@@ -1,44 +1,22 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react"
-import { getTags } from "../api/tags";
-import {FaThList} from "react-icons/fa"
-import {IoGrid} from "react-icons/io5"
+import { Dispatch, SetStateAction, useEffect} from "react"
 import { useRouter, useSearchParams } from "next/navigation";
 
 export interface ITab {
+    id: number;
     name: string;
     slug: string;
 }
 
 interface ITabProps {
+    tabs: ITab[] | null;
     tab: string;
     setTab: Dispatch<SetStateAction<string>>;
-    grid: boolean;
-    setGrid: Dispatch<SetStateAction<boolean>>;
+    slug: string;
 }
 
-const tabsData = [
-    {
-        name: "react",
-        slug: "nidf",
-    },
-    {
-        name: "fullstack",
-        slug: "nidfsdf",
-    },
-    {
-        name: "wordpress",
-        slug: "nidfasdfsfd",
-    },
-    {
-        name: "next",
-        slug: "nidfdniidf",
-    },
-]
+export default function Filter({tabs, tab, setTab, slug} : ITabProps) {
 
-export default function Filter({tab, setTab, grid, setGrid} : ITabProps) {
   const router = useRouter()
-
-  const [tabs, setTabs] = useState<ITab[] | null>(tabsData);
   const searchParams = useSearchParams()!;
 
   const catId = searchParams.get('category');
@@ -53,7 +31,7 @@ export default function Filter({tab, setTab, grid, setGrid} : ITabProps) {
 
   function clickHandler (path : string) {
     const searchParam = searchId ? `s=${searchId}&category=${path}` : `category=${path}`;
-    router.push(`/blogs?${searchParam}`);
+    router.push(`${slug}?${searchParam}`);
   }
 
   if(!tabs) {
@@ -65,7 +43,7 @@ export default function Filter({tab, setTab, grid, setGrid} : ITabProps) {
     <div className="mb-4 md:border-b border-gray-500  flex justify-between items-center">
         <ul className="flex flex-wrap -mb-px  font-medium text-center">
             {
-                tabs.map(item => {
+                tabs.map((item : any) => {
                     return (
                         <li className="mr-2" key={item.slug}>
                             <button 
@@ -80,10 +58,7 @@ export default function Filter({tab, setTab, grid, setGrid} : ITabProps) {
                 })
             }
         </ul>
-        <div className="hidden md:flex md:items-center dark:text-white">
-            <button className={`${grid ? 'text-secondary' : ''} text-lg mr-4`} onClick={() => setGrid(true)}><IoGrid /></button>
-            <button className={`${!grid ? 'text-secondary' : ''} text-lg`} onClick={() => setGrid(false)}><FaThList /></button>
-        </div>
+        
     </div>
   )
 }

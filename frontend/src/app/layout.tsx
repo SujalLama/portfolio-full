@@ -7,9 +7,15 @@ import Footer from '@/layouts/Footer'
 
 const inter = Inter({ subsets: ['latin'] })
 
-export const metadata: Metadata = {
-  title: 'Sujal dev\'s portfolio',
-  description: 'App showcasing the projects and blogs',
+export const metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_MEDIA_URL!),
+  alternates: {
+    canonical: '/',
+    languages: {
+      'en-US': '/en-US',
+    },
+  },
+  
 }
 
 export default function RootLayout({

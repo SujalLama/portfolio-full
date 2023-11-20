@@ -58,7 +58,7 @@ export default function ContactForm() {
     }
     
     return (
-        <form className="pt-10 md:p-10 flex flex-col justify-center" onSubmit={submitForm}>
+        <form className="pt-10 p-4 md:p-10 flex flex-col justify-center" onSubmit={submitForm}>
         <div className="flex flex-col">
             <label htmlFor="name" className="hidden">Full Name</label>
             <input type="name" disabled={loading} name="name" id="name" onChange={changeHandler} placeholder="Full Name" 

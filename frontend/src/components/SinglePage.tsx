@@ -1,13 +1,17 @@
+import { TagType, formatStringToDate } from "@/api/dataFormatter";
 import Image from "next/image";
 
 
 export interface ISinglePageProps {
+  id: number;
   banner: {src: string; alt: string;};
   title: string | null;
-  desc: string | null;
+  description: string | null;
   content: string | null;
-  scroll: boolean;
+  publishedAt?: string;
+  tags: TagType[];
 }
+
 
 export default function SinglePage({data} : {data: ISinglePageProps | null}) {
 
@@ -28,39 +32,55 @@ export default function SinglePage({data} : {data: ISinglePageProps | null}) {
     )
   }
   
-  const {banner, title, desc, content, scroll} = data;
+  const {banner, title, description, content, publishedAt, tags} = data;
 
 
   return (
     <main className="bg-gray-100 dark:bg-primary min-h-screen">
-      <div className={`w-full h-full z-20 md:min-h-[24rem] text-white  bg-primary-lighter dark:bg-primary-darker ${banner.src ? '' : 'pt-24'} ${scroll ? 'h-[24rem] md:h-[34rem]' : ''}`}>
-        <div className="max-w-screen-xl mx-auto px-4 flex flex-col h-full">
+      <div className={`w-full h-full z-20 md:min-h-[24rem] text-white  bg-primary-lighter dark:bg-primary-darker ${banner.src ? '' : 'pt-24'} `}>
+        <div className="max-w-screen-xl mx-auto px-4 flex flex-col">
           {banner.src 
-            ? <div className={`overflow-hidden w-full md:w-[80%] mx-auto my-8 rounded-lg border-gray-600 ${scroll ? 'group md:hover:cursor-pointer' : ''}`}>
-            <Image src={banner.src} alt={banner.alt} fill
-          className={`${scroll ? "md:group-hover:-translate-y-[82%] md:transition-transform md:duration-[6s]" : '' }`} /> 
+            ? <div className=" w-full mx-auto my-8 rounded-lg border-gray-600 relative min-h-[24rem] md:min-h-[34rem]">
+            <Image src={banner.src} alt={banner.alt} fill priority
+          className="object-cover" /> 
             </div>
             :  (<>
               {title &&<h1 className="text-4xl md:text-6xl font-semibold leading-tight max-w-screen-md pb-8">
                   {title}
                 </h1>}
-                {desc && <p className="max-w-screen-md text-lg leading-8 pb-8">{desc}</p>}
+                {description && <p className="max-w-screen-md text-lg leading-8 pb-8">{description}</p>}
             </>
             )
           }
         </div>
       </div>
       
+      <div className={`max-w-screen-xl mx-auto px-4 dark:text-white md:mb-8 mt-24`}>
+        {publishedAt && <span className="font-normal capitalize bg-gray-200 px-3 text-sm py-1 mr-3 rounded-sm mb-2 md:mb-0 text-black inline-block">
+              <span className="pr-2">Published At:</span> 
+              <span className="font-bold">{formatStringToDate(publishedAt)}</span>
+            </span>}
+
+        {tags.length > 0 && <span className="font-normal capitalize bg-gray-200 px-3 text-sm py-1 mr-3 rounded-sm mb-2 md:mb-0 text-black inline-block">
+              <span className="pr-2">Tags:</span> 
+              <span className="font-bold">{
+                tags?.map(tag => tag.title)?.join(' , ')
+              }</span>
+            </span>
+            }
+      </div>
+
       {banner.src && (
-        <div className="max-w-screen-xl mx-auto px-4 mt-24 flex flex-col h-full justify-end dark:text-white">
-        {title &&<h1 className="text-4xl md:text-6xl font-semibold leading-tight max-w-screen-md pb-8">
+        <div className="max-w-screen-xl mx-auto px-4 flex flex-col h-full justify-end dark:text-white">
+        {title &&<h1 className="text-4xl md:text-6xl font-semibold leading-tight max-w-screen-md pt-4 pb-8">
             {title}
           </h1>}
-          {desc && <p className="max-w-screen-md text-lg leading-8 pb-8">{desc}</p>}
+          {description && <p className="max-w-screen-md text-lg leading-8 pb-8">{description}</p>}
         </div>)
       }
-      <div className={`max-w-screen-xl mx-auto px-4 dark:text-white ${banner.src ? 'pt-8 pb-24' : 'py-24'}`}>
-      
+
+      <div className={`max-w-screen-xl mx-auto px-4 dark:text-white ${banner.src ? 'pt-8 pb-24' : 'pt-8 pb-24'}`}>
+
         {content && <div 
             className="max-w-screen-md prose lg:prose-lg  dark:prose-invert dark:prose-blockquote:before:content-none prose-blockquote:p-8 prose-code:prose-pp-8 prose-p:before:content-none prose-blockquote:bg-primary-lighter prose-blockquote:block  prose-code:before:content-none prose-code:after:content-none" 
             dangerouslySetInnerHTML={{__html: content}} />}

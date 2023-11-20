@@ -1,33 +1,19 @@
-import client from "./contentful-config";
+import { TAGS_PATH } from "./constants";
 
 export const getTags = async () => {
-    try {
-        const response = await  client.getTags();
+  try {
+    const {data} = await fetch(TAGS_PATH).then(res => res.json());
   
-        if(response) {
-  
-          if(response.items) {
-  
-            const data = response.items.map(item => ({
-                name: item.name ?? '',
-                id: item.sys.id ?? '',
-            }))
+    if(!data) {
+      return null;
+    }
 
-            data.unshift({
-                name: 'All',
-                id: 'all'
-            })
+    const tags = data.map((item: any) => ({id: item.id, name: item.attributes.title, slug: item.attributes.slug}));
+    tags.unshift({id: 'all', name: 'All', slug: 'all'})
+    
+    return tags ?? [];
 
-            return {
-                status: true,
-                data
-            }
-  
-          }
-  
-        }
-        
-      } catch (error) {
-          return {status:false, error: 'Error occured'}
-      }
+  } catch(error) {
+    return null;
+  }
 }

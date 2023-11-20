@@ -1,4 +1,6 @@
-export default function CardTags ({tags, grid} : {tags : string[], grid: boolean}) {
+import { TagType } from "@/api/dataFormatter";
+
+export default function CardTags ({tags, grid} : {tags : TagType[], grid: boolean}) {
 
     if(tags.length === 0) return null;
 
@@ -8,7 +10,7 @@ export default function CardTags ({tags, grid} : {tags : string[], grid: boolean
             tags.map((tag) => {
                 
                 return (
-                    <Tag key={tag} tag={tag}/>
+                    <Tag key={tag.id} tag={tag.title}/>
                 )
             })
         }

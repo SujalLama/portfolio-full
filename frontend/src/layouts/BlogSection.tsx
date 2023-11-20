@@ -1,6 +1,11 @@
+"use client";
+
+import QueryProvider from "@/providers/QueryProvider";
 import { CardProps } from "../components/CardList";
 import Slider from "../components/Slider";
 import Link from "next/link";
+import { useQuery } from "@tanstack/react-query";
+import { getBlogs } from "@/api/blogs";
 
 let data : CardProps[] | null = null
 
@@ -46,16 +51,46 @@ const blogs = [
         banner: {url: "", title: "",}
     },
 ]
+
 export default function BlogSection({data}: {data: {title: string; desc: string;}}) {
 
-    if(!blogs || blogs?.length === 0) {
-        return null;
+
+    return (
+        <QueryProvider>
+            <BlogList blogHeader={data} />
+        </QueryProvider>
+    );
+}
+
+
+function BlogList ({blogHeader}:{blogHeader: {title: string; desc: string;}}) {
+    const { 
+        isPending,
+        error,
+        data,
+        } = useQuery({
+        queryKey: ['blogs'],
+        queryFn: getBlogs,
+      })
+
+
+    if(isPending) {
+        return <div>Loading...</div>
+    }
+
+    if(error) {
+        return <div>Error...</div>
+    }
+
+
+    if(!data || data?.length === 0) {
+        return <div>No blogs available</div>;
     }
 
     return (
         <section className="bg-gray-100 dark:bg-primary">
             <div className="px-4 mx-auto max-w-screen-xl py-24">
-                <Slider data={blogs ?? []} title={data.title} desc={data.desc} />
+                <Slider data={data ?? []} title={blogHeader.title} desc={blogHeader.desc} />
 
                 <div className="hidden md:block text-center mt-16">
                     <Link href="/blogs" className="py-3 rounded-md px-4 mt-8 tracking-wide border-gray-400 hover:bg-gray-200 dark:text-white border dark:border-secondary text-base dark:hover:bg-secondary">
@@ -64,7 +99,5 @@ export default function BlogSection({data}: {data: {title: string; desc: string;
                 </div>
             </div>
         </section>
-    );
+    )
 }
-
-

@@ -1,10 +1,28 @@
 import Nav from "@/components/Nav";
 import Link from "next/link";
 import NavMenu from "@/components/NavMenu";
+import { API_URL } from "@/api/constants";
 
+const DOWNLOAD_LINK = 'https://www.googleapis.com/drive/v3/files/1EzFnfwgdhzcX6LjcskzDbr4IFTejhRi_?alt=media&key=AIzaSyAA9ERw-9LZVEohRYtCWka_TQc6oXmvcVU&supportsAllDrives=True';
 
+const getDownloadLink = async () => {
+  try {
 
-export default function Header() {
+    const {data:data} = await fetch(API_URL + `/global` ).then((res) => res.json());
+
+    if(!data) {
+      return DOWNLOAD_LINK;
+    }
+
+    return data.attributes.cvDownload;
+
+  } catch(error) {
+    return DOWNLOAD_LINK
+  }
+}
+
+export default async function Header() {
+  const downloadLink = await getDownloadLink();
 
   return (    
     <header className="border-b border-gray-400 bg-gray-100 dark:bg-primary">
@@ -19,7 +37,7 @@ export default function Header() {
                 <Nav />
             </nav>
 
-            <NavMenu />
+            <NavMenu downloadLink={downloadLink} />
         </div>
     </header>
   )

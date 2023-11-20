@@ -1,86 +1,42 @@
+"use client";
 
-import client from "./contentful-config";
+import axios from "axios";
+import { ALL_PROJECTS_PATH, PROJECTS_PATH } from "./constants";
+import { formatAllProjects, formatProjects } from "./dataFormatter";
 
-interface IEntry {
-    content_type: string;
-    select?: string;
-    'metadata.tags.sys.id[in]' ?: string;
-    'limit' ?: number;
-}
+export async function getProjects () {
+   try {
 
-export async function getAllProjects (tag: string = '', limit: number = 0) {
-    const entries : IEntry= {
-        content_type: 'project',
-        select: 'fields.title,fields.short_desc,fields.slug,fields.banner,sys.id,metadata.tags',
-    }
+      const {data} = await axios.get(PROJECTS_PATH);
 
-    if(tag && tag !== 'all') {
-        entries['metadata.tags.sys.id[in]'] = tag;
-    }
-
-    if(limit) {
-        entries['limit'] = limit;
-    }
-
-    
-    try {
-        const response = await  client.getEntries(entries);
-
-      if(response?.items) {
-        const data = response.items.map((item) => {
-            const tags = item.metadata.tags.length > 0 ? item.metadata.tags.map(tag => (tag.sys.id)) : [];
-            
-            const banner = item.fields.banner as unknown as {fields : {title: string, file: {url: string}}};
-
-            return ({
-                short_desc: item.fields.short_desc ?? '',
-                title: item.fields.title ?? '',
-                id: item.sys.id,
-                link: `/projects/${item.sys.id}`,
-                tags,
-                banner: banner?.fields?.file?.url ? {url: banner.fields.file.url, title: banner.fields.title} : {url:'', title: ''}
-            })
-        })
-
-        
-        return {status: true, data}
+      if(!data) {
+         return []
       }
-      
-    } catch (error) {
-        return {status:false, error: 'Error occured'}
-    }
-    
+
+      return formatProjects(data.data);
+   } catch(error) {
+      return [];
+   }
 }
 
-export async function getSingleProject (entryId : string) {
-    
-    try {
-      const response = await  client.getEntry(entryId);
-      if(response) {
+export async function getAllProjects ({tag}: {tag: string;}) {
+   try {
 
-        if(response.fields) {
+      let filter = '';
 
-                const {title, short_desc, banner, content, scroll} = response.fields;
-                const data = {
-                    title: title ?? '',
-                    desc: short_desc ?? '',
-                    content: content ?? '',
-                    banner: banner ?? {fields: {title: '', file: {url: ''}}},
-                    scroll: scroll ?? false
-                }
-
-                return {
-                    status: true, 
-                    data
-                }
-
-        }
-
+      if(tag !== 'all') {
+         filter = `&filters[tags][slug][$eq]=${tag}`
       }
-      
-      
-    } catch (error) {
-        return {status:false, error: 'Error occured'}
-    }
-    
+
+      const {data} = await axios.get(ALL_PROJECTS_PATH + filter);
+
+      if(!data) {
+         return []
+      }
+
+      return formatAllProjects(data.data);
+   } catch(error) {
+      return [];
+   }
 }
+

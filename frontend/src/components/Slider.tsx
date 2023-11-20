@@ -1,15 +1,17 @@
 "use client";
 
+import { TagType } from "@/api/dataFormatter";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
 interface ISlider {
-    id: string;
+    id: number;
     title: string;
     slug: string;
-    short_desc: string;
-    banner: {url: string; title: string;}
+    description: string;
+    banner: {src: string; alt: string;};
+    tags: TagType[];
 }
 
 export default function Slider({data, title, desc} : {data: ISlider[], title: string; desc: string;}) {
@@ -79,17 +81,19 @@ export default function Slider({data, title, desc} : {data: ISlider[], title: st
                                         <div className="relative bg-white border border-gray-200 
                                         rounded-md shadow-md dark:border-2 dark:border-primary-lighter dark:bg-gradient-to-t 
                                         from-primary to-primary-light group">
-                                            {item.banner.url 
+                                            {item.banner.src 
                                                 ? <div className="w-full rounded-t-lg h-40 relative">
                                                     <Image 
-                                                        src={item.banner.url} 
-                                                        alt={item.banner.title} 
+                                                        src={item.banner.src} 
+                                                        alt={item.banner.alt} 
                                                         fill
                                                         className="rounded-t-lg w-full h-full object-cover" />
                                                 </div>
                                                 : <div className="w-full rounded-t-lg h-40 bg-gradient-to-l dark:from-tertiary dark:to-secondary from-primary to-primary-lighter">
                                                     <div className="flex items-center justify-center h-full">
-                                                        <span className="text-white font-bold text-lg font-heading">SL</span>
+                                                        <span className="text-white font-bold text-lg font-heading">
+                                                            {item.tags.map(tag => tag.title).join(' , ') || "SL"}
+                                                        </span>
                                                     </div>
                                                 </div>
                                             }
@@ -98,10 +102,10 @@ export default function Slider({data, title, desc} : {data: ISlider[], title: st
                                                 
                                                 <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{item.title}</h5>
                                                 
-                                                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{item.short_desc}</p>
+                                                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">{item.description}</p>
                                             </div>
                                         </div>
-                                    </Link>        
+                                    </Link>     
                                 </div>
                             )
                         })
