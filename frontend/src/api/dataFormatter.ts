@@ -208,11 +208,11 @@ export function formatSEO(data:any) {
       shareImg: {src: '', alt: ''},
    }
 
-   const {generalSeo} = data.attributes
+   const {generalSeo} = data?.attributes
 
-   seo.metaTitle = generalSeo.metaTitle
-   seo.metaDescription = generalSeo.metaDescription
-   seo.shareImg = formatImage('thumbnail', generalSeo.shareImg?.data)
+   seo.metaTitle = generalSeo?.metaTitle
+   seo.metaDescription = generalSeo?.metaDescription
+   seo.shareImg = formatImage('thumbnail', generalSeo?.shareImg?.data)
 
    return seo;
 }
