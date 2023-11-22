@@ -4,7 +4,7 @@ export const HOME_PATH = API_URL + "/home-page?populate[generalSeo][populate]=*&
 
 export const TAGS_PATH = API_URL + '/tags';
 
-export const BLOGS_PATH = API_URL + '/blogs?fields[1]=title&fields[2]=description&fields[3]=slug&populate[0]=cover&populate[1]=tags&pagination[pageSize]=6';
+export const BLOGS_PATH = API_URL + '/blogs?fields[1]=title&fields[2]=description&fields[3]=slug&populate[0]=cover&populate[1]=tags&pagination[pageSize]=6&sort[0]=updatedAt:desc';
 export const ALL_BLOGS_PATH = API_URL + '/blogs?fields[1]=title&fields[2]=description&fields[3]=slug&populate[0]=cover&populate[1]=tags';
 export const RELATED_BLOGS_PATH = API_URL + '/blogs?fields[1]=title&fields[2]=description&fields[3]=slug&populate[0]=cover&populate[1]=tags&pagination[pageSize]=4';
 

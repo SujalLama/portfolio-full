@@ -162,7 +162,7 @@ function ProjectList({data}: {data: IProject[]}) {
 
                             <h5 className="mb-2 text-2xl font-bold  text-gray-900 dark:text-white tracking-wide">{project.title}</h5>
                             
-                            <p className="mb-3 font-normal text-sm text-gray-700 dark:text-gray-400 leading-tight">{project.description}</p>
+                            <p className="mb-3 font-normal text-gray-700 dark:text-gray-400 leading-tight">{project.description}</p>
                             </div>
                             {
                                 project.tags.length > 0 && <div className="">

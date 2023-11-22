@@ -1,11 +1,10 @@
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+// import { Inter } from 'next/font/google'
 import './globals.css'
 import Header from '@/layouts/Header'
 import ThemeProvider from '@/providers/ThemeProvider'
 import Footer from '@/layouts/Footer'
 
-const inter = Inter({ subsets: ['latin'] })
+// const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_MEDIA_URL!),
@@ -25,7 +24,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body>
         <ThemeProvider>
           <Header />
           {children}
